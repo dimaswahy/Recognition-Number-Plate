@@ -102,7 +102,7 @@ if uploaded_file is not None:
 
             # Download output image
             if st.button("Download Output Image 📷"):
-                with open(downloaded_image, "wb") as file:
+                with open(os.path.join(download_path, uploaded_file.name), "wb") as file:
                     file.write(uploaded_file.read())
                 download_success()
         else:

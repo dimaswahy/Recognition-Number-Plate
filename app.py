@@ -33,7 +33,7 @@ upload_path = "uploads/"
 download_path = "downloads/"
 
 st.image(main_image, use_column_width='auto')
-st.title('Automatic Number Plate Recognition 🚘🚙')
+st.title('Recognition Number Plate 🚘🚙')
 st.sidebar.image(top_image, use_column_width='auto')
 st.sidebar.header('Input 🛠')
 

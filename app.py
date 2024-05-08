@@ -9,6 +9,15 @@ from PIL import Image
 # Set Tesseract path
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
+# Load images
+main_image = Image.open('static/main_banner.png')
+plat_image = Image.open('static/plat.png')
+
+# Paths upload & download
+upload_path = "uploads/"
+download_path = "downloads/"
+
+
 # Page configuration
 st.set_page_config(
     page_title="Plate Detection",
@@ -23,18 +32,13 @@ def download_success():
     st.balloons()
     st.success('✅ Download Successful !!')
 
-# Load images
-main_image = Image.open('static/main_banner.png')
-plat_image = Image.open('static/plat.png')
 
-# Sidebar and main page layout
-upload_path = "uploads/"
-download_path = "downloads/"
 
 
 # Landing page
 def landing_page():
     st.image(main_image, use_column_width='auto')
+    st.sidebar.title('Recognition Number Plate 🚘🚙')
     st.sidebar.image(plat_image, use_column_width='auto')
     st.write("# Welcome to Recognition Number Plate 🚘🚙")
     st.markdown(
@@ -57,6 +61,7 @@ def landing_page():
 # Main page
 def main_page():
     st.image(main_image, use_column_width='auto')
+    st.sidebar.title('Recognition Number Plate 🚘🚙')
     st.sidebar.image(plat_image, use_column_width='auto')
     st.sidebar.write("🚘🚙 Recognition Number Plate adalah solusi cerdas untuk mengenali plat nomor kendaraan secara instan. Dengan teknologi mutakhir, aplikasi ini memungkinkan pengguna untuk dengan mudah memproses gambar plat nomor kendaraan dan mendapatkan informasi yang dibutuhkan tanpa repot. Dari pengawasan lalu lintas hingga manajemen parkir, aplikasi ini meningkatkan efisiensi tanpa kompromi. Dengan kemampuan mengenali berbagai jenis plat nomor, Recognition Number Plate adalah alat esensial bagi mereka yang mengutamakan kecepatan dan ketepatan dalam mengelola informasi kendaraan.")
 

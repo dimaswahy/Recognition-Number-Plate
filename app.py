@@ -23,10 +23,7 @@ def download_success():
     st.balloons()
     st.success('✅ Download Successful !!')
 
-
-
 # Load images
-top_image = Image.open('static/banner_top.png')
 main_image = Image.open('static/main_banner.png')
 plat_image = Image.open('static/plat.png')
 

@@ -32,7 +32,33 @@ def download_success():
     st.balloons()
     st.success('✅ Download Successful !!')
 
+def identify_country(license_plate_text):
+    # Dictionary contoh untuk kode plat nomor dan negara (ini perlu disesuaikan dengan pola aktual)
+    country_codes = {
+        "B": "Indonesia - Jakarta dan sekitarnya",
+        "D": "Indonesia - Bandung dan sekitarnya",
+        "F": "Indonesia - Bogor dan sekitarnya",
+        "L": "Indonesia - Surabaya",
+        "N": "Indonesia - Malang dan sekitarnya",
+        "AB": "Indonesia - Yogyakarta",
+        "AD": "Indonesia - Surakarta",
+        "AE": "Indonesia - Madiun",
+        "AG": "Indonesia - Kediri",
+        "J": "Jepang",
+        "S": "Singapura",
+        "W": "Malaysia",
+        "USA": "Amerika Serikat",
+        "BN": "Brunei Darussalam",
+        "C": "Rusia",
+    }
 
+    
+    # Menemukan negara berdasarkan kode awal
+    for code, country in country_codes.items():
+        if license_plate_text.startswith(code):
+            return country
+    
+    return "Negara tidak diketahui"
 
 
 # Landing page
@@ -63,7 +89,7 @@ def main_page():
     st.image(main_image, use_column_width='auto')
     st.sidebar.title('Recognition Number Plate 🚘🚙')
     st.sidebar.image(plat_image, use_column_width='auto')
-    st.sidebar.write("🚘🚙 Recognition Number Plate adalah solusi cerdas untuk mengenali plat nomor kendaraan secara instan. Dengan teknologi mutakhir, aplikasi ini memungkinkan pengguna untuk dengan mudah memproses gambar plat nomor kendaraan dan mendapatkan informasi yang dibutuhkan tanpa repot. Dari pengawasan lalu lintas hingga manajemen parkir, aplikasi ini meningkatkan efisiensi tanpa kompromi. Dengan kemampuan mengenali berbagai jenis plat nomor, Recognition Number Plate adalah alat esensial bagi mereka yang mengutamakan kecepatan dan ketepatan dalam mengelola informasi kendaraan.")
+    st.sidebar.info("🚘🚙 Recognition Number Plate adalah solusi cerdas untuk mengenali plat nomor kendaraan secara instan. Dengan teknologi mutakhir, aplikasi ini memungkinkan pengguna untuk dengan mudah memproses gambar plat nomor kendaraan dan mendapatkan informasi yang dibutuhkan tanpa repot. Dari pengawasan lalu lintas hingga manajemen parkir, aplikasi ini meningkatkan efisiensi tanpa kompromi. Dengan kemampuan mengenali berbagai jenis plat nomor, Recognition Number Plate adalah alat esensial bagi mereka yang mengutamakan kecepatan dan ketepatan dalam mengelola informasi kendaraan.")
 
     st.title('Recognition Number Plate 🚘🚙')
     # Image upload and processing
@@ -129,6 +155,8 @@ def main_page():
 
                 text = pytesseract.image_to_string(Cropped, config='--psm 10 --oem 3 -c tessedit_char_whitelist=0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
                 st.write("Detected license plate Number is:", text)
+                country = identify_country(text)
+                st.write ("Plat dari negara :", country)
 
 
                 # Download output image
@@ -141,7 +169,7 @@ def main_page():
     
                     # Menuliskan file yang di-download dengan nama baru
                     with open(os.path.join(download_path, new_filename), "wb") as file:
-                        file.write(uploaded_file.read())
+                        file.write(Cropped)
     
                     # Menampilkan pesan download sukses
                     download_success()
